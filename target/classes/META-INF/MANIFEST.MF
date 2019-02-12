@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: qa
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: mine
+Implementation-Vendor-Id: com.bingo
+Build-Jdk: 1.8.0_181
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/qa
+Created-By: Maven Integration for Eclipse
+

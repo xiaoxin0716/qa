@@ -1,0 +1,53 @@
+<#include "/header.html"/>
+<link rel="stylesheet" media="all" href="../styles/letter.css">
+
+<div id="main">
+    <div class="zg-wrap zu-main clearfix ">
+        <ul class="letter-list">
+            <#list vos as vo>
+            <li id="conversation-item-10005_622873">
+                <a class="letter-link" href="/msg/detail?conversationId=${vo.conversation.conversationId}"></a>
+                <div class="letter-info">
+                    <span class="l-time">${vo.conversation.createdDate?string["yyyy/MM/dd HH:mm:ss"]}</span>
+                    <div class="l-operate-bar">
+                        <!--<a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">-->
+                            <!--删除-->
+                        <!--</a>-->
+                        <a href="/msg/detail?conversationId=${vo.conversation.conversationId}">
+                            共${vo.conversation.id}条会话
+                        </a>
+                    </div>
+                </div>
+                <div class="chat-headbox">
+                    <#if vo.unread gt 0>
+                        <span class="msg-num">
+                            ${vo.unread}
+                        </span>
+                    </#if>
+
+                    <a class="list-head" href="/user/${vo.user.id}">
+                        <img alt="头像" src="${vo.user.headUrl}">
+                    </a>
+                </div>
+                <div class="letter-detail">
+                    <a title="通知" class="letter-name level-color-1" href="/user/${vo.user.id}">
+                        ${vo.user.name}
+                    </a>
+                    <p class="letter-brief">
+                        <a href="/msg/detail?conversationId=${vo.conversation.conversationId}">
+                            ${vo.conversation.content}
+                        </a>
+                    </p>
+                </div>
+            </li>
+            </#list>
+        </ul>
+
+    </div>
+
+</div>
+
+
+<#include "/js.html"/>
+<script type="text/javascript" src="/scripts/main/site/detail.js"></script>
+<#include "/footer.html"/>
