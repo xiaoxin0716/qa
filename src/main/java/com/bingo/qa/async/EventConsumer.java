@@ -1,7 +1,5 @@
 package com.bingo.qa.async;
 
-
-import com.alibaba.fastjson.JSON;
 import com.bingo.qa.util.JedisAdapter;
 import com.bingo.qa.util.RedisKeyUtil;
 import com.google.gson.Gson;
