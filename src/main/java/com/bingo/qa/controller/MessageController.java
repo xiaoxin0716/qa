@@ -107,7 +107,13 @@ public class MessageController {
             int targetId = message.getFromId() == localUserId ? message.getToId() : message.getFromId();
 
             // 根据id查找出另一方的信息
-            vo.set("user", userService.selectById(targetId));
+            //系统用户特殊处理
+            if(targetId == QaUtil.SYSTEM_USERID) {
+            	User sysuser = getSysUser();
+            	vo.set("user",sysuser);
+            }else{
+            	vo.set("user", userService.selectById(targetId));
+            }
 
             // 当前登录用户与另一方私信未读数量
             // 另一方发私信给当前用户，当前用户为to方
@@ -119,6 +125,14 @@ public class MessageController {
 
         return "/letter";
     }
+
+	private User getSysUser() {
+		User sysuser = new User();
+		sysuser.setId(QaUtil.SYSTEM_USERID);
+		sysuser.setName("系统用户");
+		sysuser.setHeadUrl("/images/avatar/0000.png");
+		return sysuser;
+	}
 
     /**
      * 与某人的所有会话详情
@@ -156,7 +170,12 @@ public class MessageController {
                 vo.set("message", message);
 
                 // 找到发送消息的用户的id
-                vo.set("user", userService.selectById(message.getFromId()));
+                if(message.getFromId() == QaUtil.SYSTEM_USERID) {
+                	User sysuser = getSysUser();
+                	vo.set("user",sysuser);
+                }else{
+                	vo.set("user", userService.selectById(message.getFromId()));
+                }
                 vos.add(vo);
 
             }

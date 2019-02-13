@@ -93,4 +93,18 @@ public class SearchServiceImpl implements SearchService {
         UpdateResponse response = client.add(doc, 1000);
         return response != null && response.getStatus() == 0;
     }
+    
+    /*public static void main(String[] args) {
+    	SearchServiceImpl a = new SearchServiceImpl();
+    	try {
+    		for(int i=10000;i<20000;i++) {
+				a.indexQuestion(i, i+"-标题", i+"-内容");
+    		}
+    	} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+    	
+	}*/
 }

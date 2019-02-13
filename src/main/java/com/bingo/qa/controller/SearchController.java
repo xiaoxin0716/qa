@@ -56,7 +56,10 @@ public class SearchController {
 
             for (Question question : questionList) {
                 Question q = questionService.getQuestionById(question.getId());
-
+                if(q == null) {
+                	//查询数据不存在（可能solr中存在垃圾数据）
+                	continue;
+                }
                 ViewObject vo = new ViewObject();
 
                 if (question.getContent() != null) {
