@@ -3,6 +3,7 @@ package com.bingo.qa.controller;
 import com.bingo.qa.model.*;
 import com.bingo.qa.service.CommentService;
 import com.bingo.qa.service.FollowService;
+import com.bingo.qa.service.LikeService;
 import com.bingo.qa.service.QuestionService;
 import com.bingo.qa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +30,17 @@ public class IndexController {
     private final FollowService followService;
 
     private final CommentService commentService;
+    
+    private final LikeService likeService;
 
     @Autowired
-    public IndexController(UserService userService, QuestionService questionService, HostHolder hostHolder, FollowService followService, CommentService commentService) {
+    public IndexController(UserService userService, QuestionService questionService, HostHolder hostHolder, FollowService followService, CommentService commentService,LikeService likeService) {
         this.userService = userService;
         this.questionService = questionService;
         this.hostHolder = hostHolder;
         this.followService = followService;
         this.commentService = commentService;
+        this.likeService = likeService;
     }
 
     @GetMapping(value = {"/", "/index"})
@@ -72,6 +76,15 @@ public class IndexController {
         vo.set("commentCount", commentService.getUserCommentCount(userId));
         vo.set("followerCount", followService.getFollowerCount(EntityType.ENTITY_USER, userId));
         vo.set("followeeCount", followService.getFolloweeCount(userId, EntityType.ENTITY_USER));
+        
+        
+        List<Comment> commentList = commentService.getCommentByUserId(userId);
+      //统计用户所有评论获得的赞同数
+        long likeeCount = 0;
+        for(Comment comment:commentList) {
+        	likeeCount += likeService.getLikeCount(EntityType.ENTITY_COMMENT,comment.getId());
+        }
+        vo.set("likeeeCount",likeeCount);
         if (hostHolder.getUser() != null) {
             vo.set("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.ENTITY_USER, userId));
         } else {

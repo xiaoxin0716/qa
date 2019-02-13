@@ -47,4 +47,12 @@ public interface CommentService {
      * @return
      */
     int getUserCommentCount(int userId);
+
+    /**
+     * 根据用户id获取评论信息
+     * @param userId
+     * @return
+     */
+	List<Comment> getCommentByUserId(int userId);
+
 }

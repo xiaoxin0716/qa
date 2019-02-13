@@ -73,4 +73,13 @@ public interface CommentDAO {
      */
     @Select({"select count(id) from ", TABLE_NAME, " where user_id=#{userId}"})
     int getUserCommentCount(int userId);
+    
+    /**
+     * 获取某用户的所有评论
+     * @param userId
+     * @return 评论数
+     */
+    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME,
+    " where user_id=#{userId}"})
+    List<Comment> getCommentByUserId(int userId);
 }
